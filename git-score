@@ -180,6 +180,34 @@ class GitColor(object):
       return '\033[32m%s\033[0m' % text
     return text
 
+  @classmethod
+  def yellow(cls, text):
+    '''Returns text, in yellow if color is on.'''
+    if cls.gitColorIsOn():
+      return '\033[33m%s\033[0m' % text
+    return text
+
+  @classmethod
+  def yellow(cls, text):
+    '''Returns text, in cyan if color is on.'''
+    if cls.gitColorIsOn():
+      return '\033[36m%s\033[0m' % text
+    return text
+
+  @classmethod
+  def gray(cls, text):
+    '''Returns text, in cyan if color is on.'''
+    if cls.gitColorIsOn():
+      return '\033[1;30m%s\033[0m' % text
+    return text
+
+  @classmethod
+  def purple(cls, text):
+    '''Returns text, in cyan if color is on.'''
+    if cls.gitColorIsOn():
+      return '\033[35m%s\033[0m' % text
+    return text
+
 
 def parseGitLogData(stream, options):
   class ParseCommitData(object):
