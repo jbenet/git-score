@@ -141,7 +141,7 @@ class AuthorMap(object):
       order: the direction and field to sort by. Accepted orders:
              [+-]?(author|files|commits|added|removed|delta])
     '''
-    if order[0] in ['-', '+']:  # direction was specified
+    if order[0] in ('-', '+'):  # direction was specified
       self._orderfield = order[1:]
       self._ascending = order[0] == '+'
     else:
@@ -283,6 +283,16 @@ def parseArgs():
   parser.add_option('-o', '--order', dest='order', metavar='ORDER',
                     help='sorting order (e.g., +delta)')
   options, args = parser.parse_args()
+
+  # Validate sorting field.
+  valid_fields = ('author', 'files', 'commits', 'delta', 'added', 'removed')
+  if options.order:
+    has_prefix = options.order.startswith('+') or options.order.startswith('-')
+    if (len(options.order) < 2 or
+        (has_prefix and options.order[1:] not in valid_fields) or
+        (not has_prefix and options.order not in valid_fields)):
+      parser.error('invalid sorting order: %s' % options.order)
+
   return options, args
 
 
